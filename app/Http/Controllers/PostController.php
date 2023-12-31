@@ -32,6 +32,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+
         //validar el request
         $request->validate([
             'titulo' => 'required|max:255',
@@ -40,12 +41,16 @@ class PostController extends Controller
         ]);
 
 
-        Post::create([
-            'titulo' => $request->titulo,
-            'descripcion' => $request->descripcion,
-            'imagen' => $request->imagen,
-            'user_id' => Auth::user()->id
-        ]);
+
+
+
+
+        // Post::create([
+        //     'titulo' => $request->titulo,
+        //     'descripcion' => $request->descripcion,
+        //     'imagen' => $request->imagen,
+        //     'user_id' => Auth::user()->id
+        // ]);
 
 
         //otra forma de crear registros
@@ -55,6 +60,16 @@ class PostController extends Controller
         // $post->imagen = $request->imagen;
         // $post->user_id = Auth::user()->id;
         // $post->save();
+
+        //otra forma de crear cuando hay relaciones
+        $request->user()->posts()->create([
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'imagen' => $request->imagen,
+            'user_id' => Auth::user()->id
+        ]);
+
+
 
 
         return redirect()->route('posts.index', Auth::user()->username);
