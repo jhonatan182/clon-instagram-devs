@@ -11,62 +11,62 @@ use Intervention\Image\Facades\Image;
 
 class PerfilController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
 
 
-    public function index(Request $request, User $user)
-    {
-        if ($user->id === Auth::user()->id) {
+	public function index(Request $request, User $user)
+	{
+		if ($user->id === Auth::user()->id) {
 
-            return view('perfil.index');
-        }
-
-
-        return redirect()->route('perfil.index', [Auth::user()->username]);
-    }
+			return view('perfil.index');
+		}
 
 
-    public function store(Request $request, User $user)
-    {
-        //modificar el request
-        $request->request->add([
-            'username' => Str::slug($request->username, '-')
-        ]);
+		return redirect()->route('perfil.index', [Auth::user()->username]);
+	}
 
 
-        $request->validate(['username' => ['required', 'unique:users,username,' . auth()->user()->id, 'min:3', 'max:30', 'not_in:twitter,editar-perfil']]);
+	public function store(Request $request, User $user)
+	{
+		//modificar el request
+		$request->request->add([
+			'username' => Str::slug($request->username, '-')
+		]);
 
 
-        if ($request->imagen) {
+		$request->validate(['username' => ['required', 'unique:users,username,' . auth()->user()->id, 'min:3', 'max:30', 'not_in:twitter,editar-perfil']]);
 
-            $imagen = $request->file('imagen');
-            $nombreImagen = Str::uuid() . "." . $imagen->extension();
-            $imagenServidor = Image::make($imagen);
-            $imagenPath = public_path('perfiles') . '/' . $nombreImagen;
-            $imagenServidor->save($imagenPath);
 
-            //buscar la imagen anterior del usuario
-            $usuarioImagen = User::find(Auth::user()->id);
+		if ($request->imagen) {
 
-            //eliminar la imagen 
-            $imagen_path = public_path('perfiles/' . $usuarioImagen->imagen);
+			$imagen = $request->file('imagen');
+			$nombreImagen = Str::uuid() . "." . $imagen->extension();
+			$imagenServidor = Image::make($imagen);
+			$imagenPath = public_path('perfiles') . '/' . $nombreImagen;
+			$imagenServidor->save($imagenPath);
 
-            if (File::exists($imagen_path) && $usuarioImagen->imagen) {
-                unlink($imagen_path);
-            }
-        }
+			//buscar la imagen anterior del usuario
+			$usuarioImagen = User::find(Auth::user()->id);
 
-        //guardar cambios
-        $usuario = User::find(Auth::user()->id);
-        $usuario->username = $request->username;
-        $usuario->imagen = $nombreImagen ?? Auth::user()->imagen ?? '';
+			//eliminar la imagen 
+			$imagen_path = public_path('perfiles/' . $usuarioImagen->imagen);
 
-        $usuario->save();
+			if (File::exists($imagen_path) && $usuarioImagen->imagen) {
+				unlink($imagen_path);
+			}
+		}
 
-        //redireccionar
-        return redirect()->route('posts.index', $usuario->username);
-    }
+		//guardar cambios
+		$usuario = User::find(Auth::user()->id);
+		$usuario->username = $request->username;
+		$usuario->imagen = $nombreImagen ?? Auth::user()->imagen ?? '';
+
+		$usuario->save();
+
+		//redireccionar
+		return redirect()->route('posts.index', $usuario->username);
+	}
 }

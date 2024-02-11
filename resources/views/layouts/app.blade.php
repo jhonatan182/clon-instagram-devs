@@ -70,7 +70,7 @@
 
     </header>
 
-    <main class="container mx-auto mt-10">
+    <main class="w-[90%] mx-auto mt-10">
         <h2 class="font-black text-center text-3xl mb-10">
             @yield('titulo')
         </h2>
