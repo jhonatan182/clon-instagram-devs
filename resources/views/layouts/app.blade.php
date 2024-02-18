@@ -13,6 +13,8 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
 
+    @livewireStyles()
+
 </head>
 
 <body class="bg-gray-100">
@@ -47,7 +49,7 @@
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="text-xs min-[420px]:text-base font-bold uppercase text-gray-600">
-                            Cerrar Sesion
+                            Cerrar Sesión
                         </button>
 
                     </form>
@@ -82,6 +84,8 @@
         DevStagram -Todos los derechos reservados
         {{ now()->year }}
     </footer>
+
+    @livewireScripts()
 </body>
 
 </html>
