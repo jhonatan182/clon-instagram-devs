@@ -10,6 +10,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UsuariosController;
 use App\Models\Follower;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // /post va heredar el name de "register" porque es la misma ruta, por eso se puedo evitar colocarlo
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
+
+
+//usuarios
+Route::get('/usuarios', [UsuariosController::class, 'index'])->name('users.find');
 
 //login y logout
 Route::get('/login', [LoginController::class, 'index'])->name('login');
