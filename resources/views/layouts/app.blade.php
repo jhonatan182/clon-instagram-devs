@@ -26,7 +26,7 @@
             </a>
 
             @auth
-                <nav class="flex flex-col md:flex-row gap-2 items-center">
+                <nav class="flex flex-col mt-4 md:flex-row md:mt-0 gap-6 items-center">
 
                     <div class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
