@@ -45,7 +45,7 @@ class PerfilController extends Controller
 			$imagen = $request->file('imagen');
 			$nombreImagen = Str::uuid() . "." . $imagen->extension();
 			$imagenServidor = Image::make($imagen);
-			$imagenPath = public_path('perfiles') . '/' . $nombreImagen;
+			$imagenPath = storage_path('app/public/perfiles') . '/' . $nombreImagen;
 			$imagenServidor->save($imagenPath);
 
 			//buscar la imagen anterior del usuario
