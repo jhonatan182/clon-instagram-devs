@@ -13,12 +13,7 @@ Clon de instragram para devs, donde cada uno tiene tener su perfil, tener seguid
 
 # Demo del proyecto
 ```
-https://cibgita.nyc.dom.my.id/login
-```
-
-# Mi perfil, sigueme!!
-```
-https://cibgita.nyc.dom.my.id/jona
+[https://cibgita.nyc.dom.my.id/login](https://instagram-devs-jhonatan-vargas.mnz.dom.my.id/login)
 ```
 
 
